@@ -10,7 +10,7 @@ This repository, [SuperMatics-Inc/eliashberg-uniqueness](https://github.com/Supe
 
 ## Three-band example
 
-The example has real stationary solutions with common phase and with the phase of band 2 reversed. Outward interval bounds put the energy of the common-phase root strictly below that of the reversed root, both for a hard cutoff and for a frozen exterior. The written finite-window theorem identifies the common-phase root as the global minimizer. A separate interval implementation checks root inclusion and encloses the energy independently.
+The comparison is between two real stationary states: one with a common phase and one with both relative phases equal to π. Outward interval bounds put the energy of the common-phase root strictly below that of the other root, both for a hard cutoff and for a frozen exterior. The written finite-window theorem identifies the common-phase root as the global minimizer. A separate interval implementation checks root inclusion and encloses the energy independently.
 
 Except for the Arb enclosures identified in `t8`, the nine diagnostics are floating-point checks rather than proofs. The solvers start from uncertified floating-point approximations.
 

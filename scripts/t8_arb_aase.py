@@ -1,7 +1,7 @@
 """Certify the ordering of two stationary energies using Arb ball arithmetic.
 
 For g11 = 0.8 g in Fig. 2(b) of Aase, Maeland and Sudbo (arXiv:2309.15894),
-the s++ stationary state lies strictly below the real state with band 2 reversed.
+the s++ stationary state lies strictly below the state with theta12 = theta13 = pi.
 
 Model (as in t4): bands a = 0,1,2, N_a = 1 (common N_F factored out), Einstein kernel
 lam_ab(k) = lam0_ab varpi^2 / (varpi^2 + k^2), lam0_ab = 2 N_F g_ab^2 / omega_E = g_ab^2 / 2000 (g in meV),

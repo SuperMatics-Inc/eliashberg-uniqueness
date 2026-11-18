@@ -75,8 +75,8 @@ theorem head_mass_bound {ι : Type*} [Fintype ι]
   intro i _
   simpa using mul_le_mul_of_nonneg_left (hρ i) (hw i)
 
-/-- Algebraic coercivity: analytic compactness supplies the tail error bound;
-the cube supplies a finite head bound. Those inputs are explicit. -/
+/-- The coercive bound combines the tail estimate from compactness with the
+finite head bound from the density cube. Both bounds are hypotheses here. -/
 theorem coercive_quarter (F mass interaction head K δ : ℝ)
     (hmass : 0 ≤ mass) (hhead : head ≤ K)
     (hδ : δ ≤ 1 / 2) (hnorm : 0 ≤ interaction)
@@ -95,9 +95,9 @@ theorem complement_difference_bound (c d ρ σ : ℝ)
   have h2 : (1 - d) ^ 2 ≤ σ := by nlinarith
   nlinarith [sq_nonneg ((1 - c) + (1 - d))]
 
-/-- Nonnegative series equality is reduced analytically to edge equality.
-Its propagation is checked on an arbitrary index type, including countable
-band-frequency vertices, not just a finite window. -/
+/-- The written argument derives edge equality from equality of a nonnegative
+series. This lemma propagates edge equality on an arbitrary index type,
+including countably many band-frequency vertices. -/
 theorem connected_phase_rigidity {ι : Type*}
     (E : ι → ι → Prop) (a b : ι → ℝ)
     (hconnected : ∀ i j, Relation.ReflTransGen E i j)

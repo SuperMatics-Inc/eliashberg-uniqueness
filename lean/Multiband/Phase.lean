@@ -142,8 +142,7 @@ def spinEnergy {N : ℕ} (w ε : Density N) (J : Fin N → Fin N → ℝ)
   (∑ n, w n * (1 - ε n * z n)) + (1 / 2 : ℝ) * ∑ n, ∑ m,
     J n m * (ε n * ε m - (x n * x m + y n * y m + z n * z m))
 
-/-- Lemma Alignment: the loss formula is derived from the original spin energy,
-not assumed as an energy bridge. -/
+/-- The alignment loss follows by subtracting the two full-spin energies. -/
 theorem spin_alignment_identity {N : ℕ} (w ε : Density N)
     (J : Fin N → Fin N → ℝ) (r z a b : Density N) :
     spinEnergy w ε J (fun n => r n * a n) (fun n => r n * b n) z =
@@ -177,9 +176,9 @@ theorem alignment_preserves_unit_spins {N : ℕ} (r z a b : Density N)
       congrArg (fun t : ℝ => r n ^ 2 * t) (hu n)]
   · simpa using hspin
 
-/-- TRSB and nontrivial s+- phases cannot minimize the original energy whenever
-positive transverse support and connectivity hold. Positive support at the
-minimizing density is an explicitly unformalized analytic step. -/
+/-- With positive transverse support and connectivity, a state with broken
+time-reversal symmetry or nontrivial relative signs cannot minimize the
+full-spin energy. The written proof supplies positivity at the minimizer. -/
 theorem noncommon_spin_not_global_minimum {N : ℕ} (w ε : Density N)
     (J : Fin N → Fin N → ℝ) (r z a b : Density N)
     (hJ : ∀ n m, 0 ≤ J n m) (hr : ∀ n, 0 < r n)
