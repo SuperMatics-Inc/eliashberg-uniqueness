@@ -50,3 +50,7 @@ GitHub CI builds the Lean sources against the pinned Mathlib cache using `leanpr
 - `lean/`: scoped algebraic proofs and pinned Lean dependencies.
 
 The companion article, [Zenodo preprint 10.5281/zenodo.24326099](https://doi.org/10.5281/zenodo.24326099), contains the proofs and the dated prior-art comparison. The separate sharp-bounds paper is [arXiv:2611.20496](https://arxiv.org/abs/2611.20496), with supplement [10.5281/zenodo.24270482](https://doi.org/10.5281/zenodo.24270482). No manuscript source or PDF is included here.
+
+## AI use
+
+AI agents generated proofs, certificates, code, Lean sources and manuscript drafts and edits under the author's direction and review. No LLM is an author.

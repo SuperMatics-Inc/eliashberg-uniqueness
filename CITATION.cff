@@ -7,8 +7,20 @@ authors:
     affiliation: SuperMatics Inc.
     orcid: https://orcid.org/0000-0001-5839-5197
 version: 1.0.0
-date-released: 2026-11-17
+date-released: 2026-11-18
 license: Apache-2.0
 url: https://github.com/SuperMatics-Inc/eliashberg-uniqueness
 repository-code: https://github.com/SuperMatics-Inc/eliashberg-uniqueness
 doi: 10.5281/zenodo.24326101
+preferred-citation:
+  type: generic
+  title: "Global uniqueness of the superconducting state in multiband and anisotropic Eliashberg models without Coulomb repulsion"
+  authors:
+    - family-names: Rens
+      given-names: Davis
+      affiliation: SuperMatics Inc.
+      orcid: https://orcid.org/0000-0001-5839-5197
+  year: 2026
+  doi: 10.5281/zenodo.24326099
+  status: preprint
+  notes: "Zenodo preprint. Not peer reviewed."
