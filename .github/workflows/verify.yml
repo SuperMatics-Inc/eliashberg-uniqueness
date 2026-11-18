@@ -1,0 +1,27 @@
+name: Replay supplements
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv run --python 3.13.18 --no-project --with-requirements requirements.txt python scripts/replay.py --out reproduced
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: replay-receipts
+          path: reproduced/
+  lean:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
+      - name: Reject proof escapes
+        run: |
+          if grep -R -n -E '\b(sorry|admit|native_decide)\b|^[[:space:]]*axiom[[:space:]]' lean --include='*.lean' --exclude-dir=.lake; then
+            echo 'Forbidden proof escape in project source'
+            exit 1
+          fi

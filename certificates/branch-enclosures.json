@@ -1,0 +1,89 @@
+{
+  "status": "CERTIFIED",
+  "trust": "mpmath.iv 60 decimal digits and exact dyadic integer matrix arithmetic; no Arb",
+  "calculated_not_measured": true,
+  "states": [
+    {
+      "boundary": "hard",
+      "branch": "s++",
+      "solver": "scipy.optimize.least_squares(method=trf) + Newton",
+      "float_residual": 3.552713678800501e-15,
+      "radius": "0.0000000000001",
+      "krawczyk": true,
+      "contraction_upper": "3.1980695833009565338e-12",
+      "newton_step_upper": "2.4995438988262600128e-16",
+      "energy": [
+        "-75.23628529356675795619982899132928456758480668754737293",
+        "-75.23628529356675795619744164843622462534653537234220535"
+      ],
+      "seconds": 6.733670711517334
+    },
+    {
+      "boundary": "hard",
+      "branch": "pi",
+      "solver": "scipy.optimize.least_squares(method=trf) + Newton",
+      "float_residual": 7.105427357601002e-15,
+      "radius": "0.0000000000001",
+      "krawczyk": true,
+      "contraction_upper": "3.2003765707698283798e-12",
+      "newton_step_upper": "3.1999894389838333524e-16",
+      "energy": [
+        "-75.23628162216990090123686541516261670318625651320272384",
+        "-75.23628162216990090123447806836665780403248279628588124"
+      ],
+      "seconds": 6.725372076034546
+    },
+    {
+      "boundary": "frozen",
+      "branch": "s++",
+      "solver": "scipy.optimize.least_squares(method=trf) + Newton",
+      "float_residual": 7.105427357601002e-15,
+      "radius": "0.0000000000001",
+      "krawczyk": true,
+      "contraction_upper": "3.1960943500880652314e-12",
+      "newton_step_upper": "2.2676946256573201653e-16",
+      "energy": [
+        "-75.12003706656999219224696564254823137031337774481760668",
+        "-75.12003706656999219224457009943914099222545088948962472"
+      ],
+      "seconds": 6.999236106872559
+    },
+    {
+      "boundary": "frozen",
+      "branch": "pi",
+      "solver": "scipy.optimize.least_squares(method=trf) + Newton",
+      "float_residual": 1.0658141036401503e-14,
+      "radius": "0.0000000000001",
+      "krawczyk": true,
+      "contraction_upper": "3.1959602851127210185e-12",
+      "newton_step_upper": "1.4066645947068182964e-16",
+      "energy": [
+        "-75.12003339952046255349939974253765976063561370311320959",
+        "-75.12003339952046255349700420423827835110571289291357207"
+      ],
+      "seconds": 7.200777053833008
+    }
+  ],
+  "gaps": {
+    "hard": [
+      "0.000003671396857054960576233273607922160278859139481504636424",
+      "0.000003671396857054965350922962626763552323891261491689794051"
+    ],
+    "frozen": [
+      "0.000003667049529638745170356901481231589837186376415133195814",
+      "0.000003667049529638749961438309953019207664851904034612034657"
+    ]
+  },
+  "mutants": [
+    {
+      "mutant": "shifted-center",
+      "rejected": true,
+      "seconds": 6.850491762161255
+    }
+  ],
+  "claim_mutants_rejected": [
+    "reverse-order",
+    "swap-hard-frozen",
+    "unsupported-1e-22-radius"
+  ]
+}

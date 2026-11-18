@@ -1,0 +1,32 @@
+{
+  "title": "Supplement to Global uniqueness of the superconducting state in multiband and anisotropic Eliashberg models without Coulomb repulsion",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Rens, Davis",
+      "affiliation": "SuperMatics Inc.",
+      "orcid": "0000-0001-5839-5197"
+    }
+  ],
+  "description": "Proof-support software and scoped Lean algebra for global thermodynamic uniqueness in attractive zero-Coulomb multiband and anisotropic Eliashberg spin functionals. No manuscript is included.",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "doi": "10.5281/zenodo.24326101",
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.24326099",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.48550/arXiv.2611.20496",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.5281/zenodo.24270482",
+      "relation": "references",
+      "scheme": "doi"
+    }
+  ]
+}

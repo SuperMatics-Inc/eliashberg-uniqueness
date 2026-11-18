@@ -1,0 +1,33 @@
+{
+  "calculated_not_measured": true,
+  "source": "arXiv:2309.15894v2, Results, Fig. 2(b), Appendix A",
+  "g_meV": "85",
+  "g_ratios": [
+    [
+      "4/5",
+      "1/10000",
+      "3/1000"
+    ],
+    [
+      "1/10000",
+      "7/5",
+      "3/1000"
+    ],
+    [
+      "3/1000",
+      "3/1000",
+      "1/200"
+    ]
+  ],
+  "NF_per_meV": "1/200",
+  "spin_density_weights": ["1", "1", "1"],
+  "normalization": "Common physical NF is absorbed into lambda; energies are dimensionless spin energies.",
+  "omega_E_meV": "20",
+  "T_meV": "1",
+  "M_positive_frequencies": 175,
+  "boundaries": [
+    "hard",
+    "frozen normal"
+  ],
+  "mu_star": "0"
+}

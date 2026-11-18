@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Please cite this software and the companion article."
+title: "Supplement to Global uniqueness of the superconducting state in multiband and anisotropic Eliashberg models without Coulomb repulsion"
+authors:
+  - family-names: Rens
+    given-names: Davis
+    affiliation: SuperMatics Inc.
+    orcid: https://orcid.org/0000-0001-5839-5197
+version: 1.0.0
+date-released: 2026-11-17
+license: Apache-2.0
+url: https://github.com/SuperMatics-Inc/eliashberg-uniqueness
+repository-code: https://github.com/SuperMatics-Inc/eliashberg-uniqueness
+doi: 10.5281/zenodo.24326101

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+lean/.lake/
+logs/*-replay.json
+reproduced/
