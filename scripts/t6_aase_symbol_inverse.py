@@ -1,6 +1,9 @@
-"""T6: numerical comparison of truncated and infinite-symbol inverses in the Aase et al. model (PRB 108, 214508).
-Their a_ij (Eq. 31) use the EXACT inverse of the infinite Matsubara kernel, p = 1/v(tau) (their Eq. 27-28),
-applied to gap functions truncated at |omega_n| <= M. A consistent finite-window inverse makes
+"""Compare finite-window and infinite-symbol inverses for the model of Aase
+et al. (arXiv:2309.15894).
+
+Their Eq. (31) applies the exact inverse of the infinite Matsubara kernel,
+p = 1/v(tau) in Eqs. (27)–(28), to gaps truncated at |omega_n| <= M.
+Inverting on the finite window instead gives
 a_ij = (B^-1)_ij (B G B)_ij with G_kl = f_k . v . f_l (f = Delta/E), for which the leading-order TRSB
 criterion is c^2 > xy, excluded by Cauchy-Schwarz (t4). Here we evaluate their phase rule with the
 infinite-symbol inverse p_k = (1/2pi) int e^{-ik tau} / vhat(tau), vhat(tau) = pi varpi cosh(varpi(pi-|tau|))/sinh(pi varpi),
@@ -40,7 +43,7 @@ def main():
     print(f"Boundary condition: frozen normal exterior; M={NF} positive frequencies per band.")
     Ptr = toeplitz_inverse(NF)
     Psym, p = symbol_inverse(NF)
-    # sanity: the symbol inverse convolved with v is the identity away from the window edges
+    # Check the product with the kernel at the centre and at the edge.
     j = np.arange(-NF, NF)
     v = VARPI ** 2 / (VARPI ** 2 + (j[:, None] - j[None, :]) ** 2)
     I = Psym @ v

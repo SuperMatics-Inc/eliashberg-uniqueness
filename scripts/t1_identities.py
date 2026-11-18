@@ -1,13 +1,14 @@
-"""T1: exact algebraic identities of the multiband (vertex-form) spin functional.
-Checks, on random multiband instances (pair-dependent Einstein kernels, random DOS, nonnegative
-couplings incl. zero/indefinite diagonals):
+"""Test exact identities of the multiband spin functional in floating point.
+
+Use random densities of states and pair-dependent Einstein kernels. The
+tests include nonnegative couplings and zero or indefinite diagonals.
  (a) even-sector reduction  E_full(even config) = 2 K(theta, phi)
  (b) rearrangement          K = sum w(1-c) + sum L rho + 1/4 sum D (c-c)^2 - 1/2 sum W x x cos(dphi)
  (c) stability decomposition K = Q(x e^{i phi})/2 + 1/2 sum w (1-c)^2 + 1/4 sum D (c-c)^2
  (d) alignment identity      E(S) - E(S') = 1/2 sum J (r r' - S_perp.S'_perp) >= 0
- (e) fold identity (Siraj thm:fold transplanted to vertices) E_pl(phi,psi) = 2K(hat gamma) + R, R >= 0
+ (e) Siraj's folding identity on band-frequency vertices: E_pl(phi,psi) = 2K(hat gamma) + R, R >= 0
  (f) strict midpoint convexity of the aligned folded energy in rho = x^2
-Prints max abs discrepancies; exit code 1 if any identity fails at 1e-9 relative.
+Report the largest discrepancies. Exit with status 1 if any identity fails the relative tolerance of 1e-9.
 """
 import sys
 import numpy as np

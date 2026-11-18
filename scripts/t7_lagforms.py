@@ -1,4 +1,4 @@
-"""T7: does the scalar single-crossing mechanism (lag forms non-negative on the critical mode) extend to bands?
+"""Test the signs of the lag forms on multiband critical modes.
 Write the even-sector stability form in y = Delta/omega as
   Q_T(y) = sum_v w_v y_v^2 - sum_{a,b} N_a sum_k lam_ab,T(k) q_k^{ab}(y),
   q_k^{ab}(y) = 1/2 sum_{n+m+1=k} (y_an + y_bm)^2 - 1/2 sum_{|n-m|=k, (a,n)!=(b,m)} (y_an - y_bm)^2 .
@@ -90,9 +90,9 @@ def main():
               f"min intra q_k/|y|^2={qmin_intra:+.2e} min inter q_k/|y|^2={qmin_inter:+.2e}")
     print(f"non-monotone critical modes={nonmono}, models with an intraband q_k<0={neg_intra}, "
           f"with an interband q_k<0={neg_inter}, most negative interband q_k/|y|_w^2={worst:+.3e}")
-    # adversarial: pure interband coupling / very unequal band weights / soft interband phonon
-    print("adversarial two-band families -> crossings of r(T)=1, max relative increase of r(T) on a T grid, "
-          "min interband q_k on the critical mode at Tc")
+    # Three test cases: pure interband coupling, unequal band weights and a soft interband phonon.
+    print("Two-band test cases: crossings of r(T)=1, largest relative increase on the temperature grid, "
+          "and smallest interband q_k on the critical mode at Tc")
     cases = [
         ("pure interband", [1.0, 1.0], [[0.0, 1.0], [1.0, 0.0]], [[1.0, 1.0], [1.0, 1.0]]),
         ("pure interband", [1.0, 1e2], [[0.0, 1.0], [1.0, 0.0]], [[1.0, 1.0], [1.0, 1.0]]),

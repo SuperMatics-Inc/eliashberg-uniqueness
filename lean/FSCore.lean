@@ -1,17 +1,17 @@
 import Multiband.Density
 
 /-!
-Finite/algebraic core only. The measurable irreducibility, compact-operator,
-weak lower semicontinuity, and integral arguments in THEOREM.md are NOT
-formalized here. The imported finite core is copied unchanged from the
-multiband source identified in RIGOR.md.
+Pointwise identities for the anisotropic Fermi-surface argument. These proofs
+use the finite density algebra from `Multiband.Density`. The written proof
+handles measurable irreducibility, compact angular operators, weak lower
+semicontinuity and integration.
 -/
 
 noncomputable section
 namespace FSUniq
 
-/-- The pointwise complement-square identity also applies to equal-frequency,
-distinct-angle pairs. There is no index inequality hypothesis. -/
+/-- The complement identity holds at equal frequencies and distinct angles
+as well; it requires no inequality between the indices. -/
 theorem complement_identity (s c t d : ℝ)
     (h : s ^ 2 + c ^ 2 = 1) (h' : t ^ 2 + d ^ 2 = 1) :
     1 - c * d = (s ^ 2 + t ^ 2 + (c - d) ^ 2) / 2 := by

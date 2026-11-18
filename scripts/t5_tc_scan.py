@@ -1,9 +1,13 @@
-"""T5: multiband single-crossing probe (NUMERICAL, not a proof).
-For random multiband models with pair-dependent Einstein frequencies Omega_ab (spread over two decades),
-nonnegative couplings (some zero intraband), random DOS, compute the top eigenvalue r(T) of the linear
-stability operator diag(w+2L)^-1/2 W diag(w+2L)^-1/2 (even sector, exterior frozen) on a log T grid,
-and count (i) non-monotone steps of r(T) and (ii) crossings of r = 1 (re-entrance would give >1).
-Thermodynamic Tc = sup{T : r(T) > 1} by the stability decomposition (proved); single crossing is the open part.
+"""Look for multiple crossings of the stability eigenvalue on a temperature grid.
+
+Draw random densities of states and vary pair-dependent Einstein frequencies
+over two decades. The couplings are nonnegative, with some intraband terms
+set to zero. In the even sector with frozen exterior, compute the top
+eigenvalue r(T) of diag(w+2L)^-1/2 W diag(w+2L)^-1/2. Count increases in r(T)
+and crossings of 1; re-entrance would give more than one crossing.
+
+The stability decomposition gives Tc = sup{T : r(T) > 1}. This scan does not
+decide whether there is a single crossing.
 """
 import sys
 import numpy as np

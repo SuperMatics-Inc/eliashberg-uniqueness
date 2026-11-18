@@ -1,9 +1,17 @@
-"""T4: the three-band phonon-only TRSB claim of Aase, Maeland, Sudbo, PRB 108, 214508 (2023), arXiv:2309.15894.
-Their model: common Einstein phonon (omega_E=20 meV), T=1 meV, equal DOS N_F=0.005/meV, B_ij=|g_ij|^2 >= 0,
-  g22=1.4g, g33=0.005g, g12=1e-4 g, g13=g23=0.003g, g=85 meV, g11 ~ g; cutoff 1100 meV (Nf=175).
-  lam_ij(0) = 2 N_F |g_ij|^2/omega_E, lam_ij(k) = lam_ij(0) varpi^2/(varpi^2+k^2), varpi = omega_E/(2 pi T).
-All diagnostics here use the finite window with its exterior pinned to the normal state, not the hard cutoff.
-This satisfies every hypothesis of the multiband theorem (nonnegative, connected, symmetric, common antitone kernel).
+"""Numerical phase checks for the phonon-only model of Aase, Maeland and Sudbo
+(arXiv:2309.15894).
+
+The model uses a common Einstein frequency omega_E = 20 meV at T = 1 meV.
+The bands have equal densities of states N_F = 0.005/meV, and B_ij = |g_ij|^2 >= 0.
+Here g = 85 meV, g11 is of order g, and g22 = 1.4g. The other couplings are
+g33 = 0.005g, g12 = 1e-4 g, and g13 = g23 = 0.003g.
+The frequency cutoff is 1100 meV (Nf = 175), with the exterior held normal.
+The kernels are lam_ij(k) = lam_ij(0) varpi^2/(varpi^2+k^2), where
+lam_ij(0) = 2 N_F |g_ij|^2/omega_E and varpi = omega_E/(2 pi T).
+The model satisfies the multiband theorem's hypotheses: the band graph is
+connected, and the couplings are symmetric and nonnegative with a common
+antitone kernel.
+
  (A) s++ (TRS) solution; their Appendix-A phase rule evaluated at the s++ magnitudes and iterated to
      self-consistency (amplitudes from Eq.(33) + Re Eq.(34) only), with the TRSB margin and the Gram ratio
      c^2/(xy), c = f1.v.f2, x = f1.v.f1, y = f2.v.f2 (leading-order TRSB criterion of the rule is c^2 > xy).
@@ -51,7 +59,7 @@ _T12, _T13 = np.meshgrid(_TG, _TG, indexing="ij")
 
 
 def phase_rule(a12, a13, a23):
-    """global minimiser of a12 cos t12 + a13 cos t13 + a23 cos(t13 - t12) (their Eq. A1): grid + BFGS polish."""
+    """Search the phase energy in Eq. (A1) on a grid, then refine with BFGS."""
     s = max(abs(a12), abs(a13), abs(a23))
     a12, a13, a23 = a12 / s, a13 / s, a23 / s
     f = lambda t: a12 * np.cos(t[0]) + a13 * np.cos(t[1]) + a23 * np.cos(t[1] - t[0])
@@ -180,7 +188,7 @@ def part_B(m, Dtrs, E_trs):
     S = spins_from_delta(m, D)
     tq = m.torque(S)
     dE = m.energy(S) - E_trs
-    # free-energy bridge at a NON-positive stationary point: Bardeen-Stephen value = 2 x spin energy
+    # At this sign-changing stationary point, the Bardeen-Stephen value is twice the spin energy.
     om = 2 * np.arange(m.Nf) + 1.0
     Lp, Lm = blocks(m)
     E = np.sqrt(om ** 2 + D ** 2)

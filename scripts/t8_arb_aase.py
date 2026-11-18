@@ -1,6 +1,7 @@
-"""T8: interval certificate (Arb ball arithmetic via python-flint) for the three-band phonon-only model of
-Aase, Maeland, Sudbo, PRB 108, 214508 (2023), arXiv:2309.15894, at their Fig. 2(b) point g11 = 0.8 g:
-the s++ stationary state lies strictly below the theta12 = theta13 = pi stationary state.
+"""Certify the ordering of two stationary energies using Arb ball arithmetic.
+
+For g11 = 0.8 g in Fig. 2(b) of Aase, Maeland and Sudbo (arXiv:2309.15894),
+the s++ stationary state lies strictly below the real state with band 2 reversed.
 
 Model (as in t4): bands a = 0,1,2, N_a = 1 (common N_F factored out), Einstein kernel
 lam_ab(k) = lam0_ab varpi^2 / (varpi^2 + k^2), lam0_ab = 2 N_F g_ab^2 / omega_E = g_ab^2 / 2000 (g in meV),
@@ -17,7 +18,7 @@ Certificate per state:
   (2) Krawczyk test for grad K on the box X = gamma~ + [-r, r]^V: if |C g(gamma~)| + r * rowsum|I - C H(X)| < r
       componentwise, grad K has exactly one zero gamma* in X (H(X) = Arb enclosure of the Hessian on X);
   (3) K(gamma*) in K(gamma~) + [-1, 1] * r * sum_v sup_X |d_v K| (mean value theorem).
-Conclusion checked in ball arithmetic: lower(E_pi) > upper(E_pp).
+The last comparison checks that the lower endpoint of E_pi exceeds the upper endpoint of E_pp.
 """
 import sys
 import time

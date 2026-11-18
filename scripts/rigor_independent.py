@@ -1,7 +1,10 @@
-"""Independent Aase replay: SciPy trust-region solve, mpmath.iv, exact integers.
-No imports from the original implementation. Interval matrix preconditioning uses
-fixed-point integer endpoint enclosures, with fmpz_mat for EXACT multiplication;
-Arb and arb_mat are never used. All scientific values are calculated, not measured.
+"""Independently enclose the roots and energies of the three-band example.
+
+SciPy supplies trial roots and mpmath supplies interval bounds. Matrix
+preconditioning uses fixed-point integer endpoints and exact fmpz_mat
+multiplication. This implementation imports neither the original code nor Arb.
+All reported scientific values are calculated, not measured.
+
 Run: python scripts/rigor_independent.py --out logs/rigor/independent.json
 """
 import argparse
@@ -131,7 +134,7 @@ def certify(frozen,signed,ker,mutant=None):
             mid.append(m);rad.append(max(m-lo,hi-m))
             row_bound += max(abs(lo),abs(hi))
         hm.append(mid);hr.append(rad);hrows.append(row_bound)
-    # Every double in C is converted EXACTLY to a scaled integer.
+    # Convert each double in C to a scaled integer without rounding.
     ci=[]
     for row in C:
         rr=[]
@@ -148,7 +151,7 @@ def certify(frozen,signed,ker,mutant=None):
         lo,hi=bounds_int(g);glo.append(lo);ghi.append(hi)
     scale2=SCALE*SCALE
     contraction=mp.mpf(0); maxstep=mp.mpf(0); accepted=True
-    # These comparisons are rational/integer, with no floating rounding in acceptance.
+    # Decide inclusion by exact integer comparisons.
     rnum,rden=1,10**13
     for i in range(SIZE):
         row_error=sum(abs((scale2 if i==j else 0)-int(product[i,j]))+int(error[i,j]) for j in range(SIZE))
@@ -166,7 +169,7 @@ def certify(frozen,signed,ker,mutant=None):
         return {'mutant':mutant,'rejected':not accepted,'seconds':time.time()-start}
     assert accepted,'Krawczyk inclusion failed'
     assert all(iv.mpf(abs(float(v)))>ri and iv.mpf(abs(float(v)))+ri<iv.pi/2 for v in x)
-    # Energy at root via a second-order Taylor bound, not original first-order method.
+    # Bound the energy at the root with a second-order Taylor estimate.
     K=sum((w[i]*(1-cc[i]) for i in range(SIZE)),iv.mpf(0))
     K+=sum((rowsD[i]-cc[i]*dc[i]-ss[i]*ws[i] for i in range(SIZE)),iv.mpf(0))/2
     # max ||H(X)||_infinity encloses each row. Taylor remainder <= r²/2 sum rows.
@@ -184,8 +187,10 @@ def certify(frozen,signed,ker,mutant=None):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--out',type=Path,default=Path('logs/rigor/independent.json'))
-    p.add_argument('--mutant',action='store_true')
+    p.add_argument('--out',type=Path,default=Path('logs/rigor/independent.json'),
+                   help='JSON file for the root and energy enclosures.')
+    p.add_argument('--mutant',action='store_true',
+                   help='Check that the inclusion test rejects a shifted centre.')
     args=p.parse_args()
     ker=kernel_iv();records=[];gaps={}
     energy_claims = {
@@ -210,10 +215,10 @@ def main():
         gaps['frozen' if frozen else 'hard']=text(gap)
         records.extend((pp,pi))
     mutants=[]
-    # Numeric acceptance mutant: wrong center must fail Krawczyk inclusion.
+    # A shifted centre must fail the Krawczyk inclusion test.
     if args.mutant:
         mutants.append(certify(False,False,ker,'shifted-center'))
-    # Scientific-claim mutants: wrong sign, boundary label and asserted precision.
+    # Check the ordering, distinguish the boundaries and reject a narrower interval.
     hard=list(map(mp.mpf,gaps['hard']));frozen=list(map(mp.mpf,gaps['frozen']))
     assert hard[0]>0 and not (-hard[1]>0)
     assert hard[0]>frozen[1]

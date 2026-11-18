@@ -6,7 +6,7 @@ open scoped BigOperators
 namespace Multiband
 open KayThermo
 
-/-- Enumeration of the positive-frequency band vertices; no scalar-kernel restriction. -/
+/-- A real vector indexed by the positive-frequency band vertices. -/
 abbrev Density (N : ℕ) := Fin N → ℝ
 
 def rowHalf {N : ℕ} (D : Fin N → Fin N → ℝ) (n : Fin N) : ℝ :=
@@ -90,7 +90,7 @@ theorem hidden_substitution {N : ℕ} (w : Density N) (D W : Fin N → Fin N →
   simp only [mul_assoc]
   ring
 
-/-- Lemmas Strict convexity and Existence: unique attainment on the full closed cube. -/
+/-- Under the stated signs, the density functional has a unique minimum on the closed cube. -/
 theorem density_unique_minimum {N : ℕ} (w L : Density N)
     (D W : Fin N → Fin N → ℝ) (hw : ∀ n, 0 < w n)
     (hD : ∀ n m, n ≠ m → 0 ≤ D n m) (hW : ∀ n m, 0 ≤ W n m) :
@@ -100,7 +100,7 @@ theorem density_unique_minimum {N : ℕ} (w L : Density N)
   intro σ hσ
   exact Gen_min_unique w L D W hw hD hW hσ.1 hρ hσ.2 hmin
 
-/-- The exact nonnegative-square decomposition; no spectral or sign assumptions. -/
+/-- Decompose the density energy into its quadratic part and weighted squares. -/
 theorem density_decomposition {N : ℕ} (w L : Density N)
     (D W : Fin N → Fin N → ℝ) (ρ : Density N) (hρ : ρ ∈ cube N) :
     Gen w L D W ρ = (1 / 2 : ℝ) * qForm w L W (fun n => Real.sqrt (ρ n)) +

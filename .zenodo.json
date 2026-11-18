@@ -8,7 +8,7 @@
       "orcid": "0000-0001-5839-5197"
     }
   ],
-  "description": "Proof-support software and scoped Lean algebra for global thermodynamic uniqueness in attractive zero-Coulomb multiband and anisotropic Eliashberg spin functionals. No manuscript is included.",
+  "description": "Calculations and Lean proofs for the article on thermodynamic uniqueness in attractive multiband and anisotropic Eliashberg spin functionals at zero Coulomb pseudopotential. The Lean files prove selected algebraic statements. The manuscript is available separately.",
   "license": "Apache-2.0",
   "version": "1.0.0",
   "doi": "10.5281/zenodo.24326101",

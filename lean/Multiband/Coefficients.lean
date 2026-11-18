@@ -12,7 +12,7 @@ def sameCoupling {p M : ℕ} (dos : Fin p → ℝ) (lam : Fin p → Fin p → �
 def oppositeCoupling {p M : ℕ} (dos : Fin p → ℝ) (lam : Fin p → Fin p → ℕ → ℝ)
     (u v : Vertex p M) : ℝ := dos u.1 * lam u.1 v.1 (u.2.val + v.2.val + 1)
 
-/-- H1 and H3 give nonnegative symmetric density-weighted interactions. -/
+/-- Density-weighted reciprocity makes both coupling matrices symmetric. -/
 theorem coupling_symmetry {p M : ℕ} (dos : Fin p → ℝ)
     (lam : Fin p → Fin p → ℕ → ℝ)
     (hrecip : ∀ a b k, dos a * lam a b k = dos b * lam b a k)
@@ -27,8 +27,8 @@ theorem coupling_symmetry {p M : ℕ} (dos : Fin p → ℝ)
     rw [Nat.add_comm u.2.val v.2.val]
     exact hrecip _ _ _
 
-/-- The exceptional intraband zero-lag value is deliberately NOT assumed monotone.
-For distinct same-band vertices the lag is at least one, exactly as in H2. -/
+/-- Distinct vertices in the same band have lag at least one, so intraband
+monotonicity is needed only at positive lags, as in H2. -/
 theorem offdiagonal_D_nonneg {p M : ℕ} (dos : Fin p → ℝ)
     (lam : Fin p → Fin p → ℕ → ℝ) (hdos : ∀ a, 0 < dos a)
     (hanti : ∀ a b j k, (a = b → 1 ≤ j) → j ≤ k → lam a b k ≤ lam a b j)

@@ -1,7 +1,7 @@
-"""Replay every numerical diagnostic and both interval implementations.
+"""Reproduce the nine numerical diagnostics and the interval calculations.
 
-No manuscript or Lean build is required. See README for the limited Lean scope.
-Each child runs sequentially; receipts include its exit status and log hash.
+The scripts run in order. The summary gives each script's exit status and
+the SHA-256 digest of its log. No manuscript or Lean build is needed.
 """
 import argparse
 from datetime import datetime, timezone
@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--out', type=Path, default=ROOT/'reproduced')
+    parser.add_argument('--out', type=Path, default=ROOT/'reproduced',
+                        help='Directory for logs and calculation results.')
     args = parser.parse_args()
     args.out = args.out.resolve()
     args.out.mkdir(parents=True, exist_ok=True)
@@ -27,9 +28,9 @@ def main():
     (args.out/'source-pins.json').write_text(
         json.dumps({'checked': len(pins), 'mismatches': mismatches}, indent=2)+'\n')
     if mismatches:
-        print('Source pin mismatch: '+', '.join(mismatches), file=sys.stderr)
+        print('SHA-256 mismatch: '+', '.join(mismatches), file=sys.stderr)
         return 1
-    print(f'Source pins: {len(pins)} verified', flush=True)
+    print(f'Verified SHA-256 digests for {len(pins)} files.', flush=True)
     jobs = [(p.stem, [sys.executable, str(p)]) for p in sorted((ROOT/'scripts').glob('t[1-9]_*.py'))]
     jobs.append(('independent', [sys.executable, str(ROOT/'scripts/rigor_independent.py'), '--mutant', '--out', str(args.out/'independent.json')]))
     env = os.environ.copy()

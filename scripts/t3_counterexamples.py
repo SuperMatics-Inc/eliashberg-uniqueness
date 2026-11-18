@@ -1,11 +1,15 @@
-"""T3: necessity of the hypotheses (NUMERICAL counterexamples / gauge checks).
- (i)  disconnected bands (lam_12 = 0): minimisers form a U(1)xU(1) family (relative phase free).
- (ii) two-channel model, 2 bands, repulsive interband PAIRING (lam^D_12 < 0, lam^Z_12 >= 0):
-      unique modulo U(1) with relative sign pi (s+-): the signed graph is balanced (gauge flip).
- (iii) two-channel model, 3 bands, all interband pairing repulsive (frustrated triangle):
-      global minimum is TRSB (non-collinear phases), so it is NOT unique modulo U(1):
-      its complex conjugate is a second minimiser off the U(1) orbit.
-Two-channel energy (Z channel lam^Z >= 0 antitone, pairing channel lam^D signed):
+"""Numerical examples outside the hypotheses of the uniqueness theorem.
+
+(i) With disconnected bands (lam_12 = 0), the minimizing family has two
+    independent phases; the relative phase is free.
+(ii) With two bands and repulsive interband pairing (lam^D_12 < 0, lam^Z_12 >= 0),
+     a gauge flip of the balanced signed graph gives the s+- state. Its
+     relative phase is pi, and it is unique up to a common phase.
+(iii) With three bands and all interband pairing repulsive, the frustrated
+      triangle favours noncollinear phases numerically. Complex conjugation
+      gives the partner state outside the original U(1) orbit.
+
+The two-channel model uses nonnegative, antitone lam^Z and signed lam^D:
   E = sum zee |S-N|^2/2 + 1/2 sum_{u!=v} [J^Z_uv (eps_uv - S^z_u S^z_v) - J^D_uv S^perp_u.S^perp_v]
       + 1/2 sum_u (J^Z_uu - J^D_uu) |S^perp_u|^2
 whose stationary points are the two-channel Eliashberg equations

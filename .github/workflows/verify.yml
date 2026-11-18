@@ -1,4 +1,4 @@
-name: Replay supplements
+name: Verify the supplement
 on: [push, pull_request, workflow_dispatch]
 jobs:
   certificates:
@@ -6,7 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - run: uv run --python 3.13.18 --no-project --with-requirements requirements.txt python scripts/replay.py --out reproduced
+      - name: Reproduce the interval calculations and numerical checks
+        run: uv run --python 3.13.18 --no-project --with-requirements requirements.txt python scripts/replay.py --out reproduced
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -19,9 +20,9 @@ jobs:
       - uses: leanprover/lean-action@v1
         with:
           lake-package-directory: lean
-      - name: Reject proof escapes
+      - name: Check for admitted proofs, new axioms and native_decide
         run: |
           if grep -R -n -E '\b(sorry|admit|native_decide)\b|^[[:space:]]*axiom[[:space:]]' lean --include='*.lean' --exclude-dir=.lake; then
-            echo 'Forbidden proof escape in project source'
+            echo 'Found an admitted proof, axiom declaration or use of native_decide'
             exit 1
           fi

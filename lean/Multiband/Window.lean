@@ -6,9 +6,8 @@ open scoped BigOperators
 namespace Multiband
 open KayThermo
 
-/-- Full-spin reductions are explicit hypotheses, not postulated axioms. The paper
-proves these by alignment and folding. This interface does NOT certify that those
-maps have been constructed for the physical spin functional. -/
+/-- The data of a full-spin reduction. The written proof constructs these
+maps for the physical spin functional by alignment and folding. -/
 structure Reduction {N : ℕ} (C : Type*) (w L : Density N)
     (D W : Fin N → Fin N → ℝ) (energy : C → ℝ) where
   density : C → Density N
@@ -20,9 +19,9 @@ structure Reduction {N : ℕ} (C : Type*) (w L : Density N)
   embed_density : ∀ ρ ∈ cube N, density (embed ρ) = ρ
   embed_remainder : ∀ ρ ∈ cube N, remainder (embed ρ) = 0
 
-/-- Conditional version of Window(a,b): the minimizing density is constructed and
-unique; precisely the zero-remainder configurations over it are global minima.
-Interpreting this fiber as a U(1) orbit still requires support and equality cases. -/
+/-- Given a full-spin reduction, the minima are exactly the zero-remainder
+configurations over the unique minimizing density. Identifying this set with
+a `U(1)` orbit requires the support and equality arguments. -/
 theorem window_reduced_classification {N : ℕ} {C : Type*}
     (w L : Density N) (D W : Fin N → Fin N → ℝ) (energy : C → ℝ)
     (hw : ∀ n, 0 < w n) (hD : ∀ n m, n ≠ m → 0 ≤ D n m)
@@ -86,9 +85,9 @@ theorem outside_fiber_strict_energy {N : ℕ} {C : Type*}
   · exact h hd
   · exact h hz
 
-/-- Conditional Tc equality as SETS, not a single-crossing theorem. The outstanding
-analytic input is descent from a negative quadratic direction. Reduction of the
-full spin energy is separately explicit in R. -/
+/-- The instability temperature sets agree given a reduction at each
+temperature and descent in every negative quadratic direction. This states
+equality of the sets, not the number of crossings. -/
 theorem instability_sets_equal {N : ℕ} {C Θ : Type*}
     (w L : Θ → Density N) (D W : Θ → Fin N → Fin N → ℝ)
     (energy : Θ → C → ℝ)
@@ -121,8 +120,8 @@ theorem linear_gap_matrix_bridge {N : ℕ} (d e : Density N)
       (if i = j then d i else 0) - W i j := by
   split_ifs <;> ring
 
-/-- Exact-rational checks of the outward displayed Arb GAP intervals. These do not
-check the Krawczyk root boxes or the generation of the enclosure itself. -/
+/-- Exact comparison of the displayed interval endpoints. The separate interval
+calculation supplies the enclosures and validates the root boxes. -/
 theorem aase_hard_gap_lower_positive :
     (0 : ℝ) < 0.00000367139685705 - 0.00000000000000000519 := by norm_num
 
@@ -153,7 +152,7 @@ theorem aase_hard_energy_intervals_order {Eplus Epi : ℝ}
       (-75.236281622169900901 + 0.000000000000000000347)) : Eplus < Epi := by
   linarith [hplus.2, hpi.1]
 
-/-- Independent exact arithmetic on the two displayed pinned-exterior energy boxes. -/
+/-- Exact comparison of the energy intervals for a frozen exterior. -/
 theorem aase_frozen_energy_intervals_order {Eplus Epi : ℝ}
     (hplus : Eplus ∈ Set.Icc
       (-75.120037066569992192 - 0.000000000000000000295)

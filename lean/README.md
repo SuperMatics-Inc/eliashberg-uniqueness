@@ -1,31 +1,31 @@
-# Supplement to Global uniqueness of the superconducting state in multiband and anisotropic Eliashberg models without Coulomb repulsion: scoped Lean proofs
+# Lean proofs for Eliashberg uniqueness
 
-Companion to “Global uniqueness of the superconducting state in multiband and anisotropic Eliashberg models without Coulomb repulsion”, repository `SuperMatics-Inc/eliashberg-uniqueness`.
+These files accompany “Global uniqueness of the superconducting state in multiband and anisotropic Eliashberg models without Coulomb repulsion”.
 
-Lean 4.35.0 and Mathlib v4.35.0 are required, with `autoImplicit = false`. The git requirement and committed manifest pin Mathlib to `56a005855ea17e0b0958f73ec801ae140b0a1679`.
+The build uses Lean 4.35.0 and Mathlib v4.35.0, with `autoImplicit = false`. The Mathlib revision is `56a005855ea17e0b0958f73ec801ae140b0a1679`.
 
-With elan installed, from this directory:
+With elan installed, run these commands from this directory:
 
 ```sh
 lake exe cache get
 lake build
 ```
 
-Fetch the precompiled cache rather than compiling Mathlib from source. `Multiband.lean` and `FSCore.lean` print axiom dependencies. The proofs introduce no custom axioms or admitted proofs; ordinary foundational axioms remain.
+The first command downloads the precompiled Mathlib library. `Multiband.lean` and `FSCore.lean` print the axioms on which their theorems depend. They use the ordinary foundational axioms, with no new axioms or admitted proofs.
 
 ## Mathematical content
 
-- `KayThermo/Convex.lean`: finite arbitrary-coefficient density strict convexity, continuity, compact-cube attainment, uniqueness and the convex stationary-point criterion. Signs and weights are explicit hypotheses.
-- `Multiband/Coefficients.lean`: reciprocity and symmetry, the zero-lag exception in off-diagonal positivity, Einstein-kernel positivity and monotonicity, and squared-coupling positivity.
-- `Multiband/Density.lean`: finite row rearrangement, hidden substitution, density uniqueness, normal-state decomposition and strict normal minimality, including the marginal case. Negative density energy implies a negative quadratic direction.
-- `Multiband/Phase.lean`: Cartesian alignment identities, nonnegative alignment loss, edgewise equality and propagation along positive connected couplings; scalar folding rigidity conditional on its explicit equality hypotheses.
-- `Multiband/Window.lean`: full-energy classification conditional on the explicit `Reduction` interface. That interface assumes the full-spin folding map, cube membership, nonnegative remainder, exact energy identity and zero-remainder embedding. Equality of instability temperature sets additionally assumes nonlinear descent. Exact rational ordering of displayed energy intervals is conditional on enclosure membership.
-- `Multiband/InfiniteCore.lean`: nine finite Schur, weighted head/mass/coercivity and complement-difference inequalities, and abstract connected-graph equality propagation. These are algebra for the written infinite-chain proof, not its analytic limit arguments.
-- `FSCore.lean`: six pointwise statements: complement identity, normal remainder, phase chord, positive-weight phase rigidity, complement saturation and midpoint gap. Imports supply the finite density core. The source comments' document names refer to the written mathematical development, not additional Lean modules.
+- `KayThermo/Convex.lean` proves continuity and attainment on the closed density cube for general finite coefficient arrays. Under the stated sign and weight hypotheses it proves strict convexity and uniqueness. It also gives the convex stationary-point criterion.
+- `Multiband/Coefficients.lean` checks reciprocity and symmetry, with an exception at zero lag in the off-diagonal positivity statement. It proves positivity and monotonicity of the Einstein kernel and positivity of the squared couplings.
+- `Multiband/Density.lean` rearranges finite row sums, justifies the substitution of squared transverse components and proves uniqueness. Its normal-state decomposition gives strict normal minimality even in the marginal case. A negative density energy implies a negative quadratic direction.
+- `Multiband/Phase.lean` expresses alignment loss in Cartesian coordinates. It proves nonnegativity and propagates edgewise equality through positive connected couplings. Scalar folding rigidity uses the stated equality hypotheses.
+- `Multiband/Window.lean` classifies full-energy minima assuming `Reduction`. This structure requires a full-spin folding map into the cube and an exact energy identity with a nonnegative remainder. It also requires an embedding with zero remainder. The two instability temperature sets agree if nonlinear descent is assumed as well. The rational interval comparisons assume that the energies belong to the stated intervals.
+- `Multiband/InfiniteCore.lean` proves nine finite inequalities for Schur bounds, weighted head and mass estimates, coercivity, and complement differences. It also proves equality propagation on an abstract connected graph.
+- `FSCore.lean` proves the complement identity, normal remainder and phase chord formulas. The other three statements concern positive-weight phase rigidity, complement saturation and the midpoint gap. Imports provide the finite density results. Document names in comments refer to written proofs.
 
-## Explicit limits
+## Scope
 
-Neither main theorem is formalized end to end. The following remain written analysis or independent interval computation:
+The main theorems also require written analysis and separate interval calculations. The Lean files stop short of the following steps:
 
 1. Construction and assembly of the physical full-spin folding map and its complete equality cases.
 2. Boundary perturbations, strictly interior nonzero support and physical support propagation.
@@ -35,4 +35,4 @@ Neither main theorem is formalized end to end. The following remain written anal
 6. Infinite-series convergence, weighted compactness, coercivity, attainment, hybrid-competitor limits and physical frequency-graph connectivity.
 7. Measurable irreducibility, compact angular operators, weak lower semicontinuity, integral identities and continuum attainment.
 
-GitHub CI builds the Lean sources against the pinned Mathlib cache using `leanprover/lean-action@v1`, which fetches the Mathlib cache before `lake build`. CI runs on push and pull requests and can also be started manually; see the repository's Actions tab for run links. The workflow separately rejects proof escapes in project sources. The same cache-first sequence is recommended for a fresh local checkout. The source pins identify the portable dependency configuration; neither the build nor the source check extends the mathematical scope above.
+[GitHub Actions](https://github.com/SuperMatics-Inc/eliashberg-uniqueness/actions) uses `leanprover/lean-action@v1` to download the Mathlib cache before building. A separate step checks for admitted proofs, new axiom declarations and uses of `native_decide`. The workflow runs on pushes and pull requests and can also be started manually.

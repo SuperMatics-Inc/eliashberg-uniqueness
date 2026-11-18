@@ -1,9 +1,12 @@
-"""T2: physics validation of the multiband spin functional and the uniqueness/Tc claims (NUMERICAL).
- (1) one-band reduction: stability eigenvalue at the known Einstein lambda=1 Tc.
- (2) independent multiband (Z,Delta) Eliashberg solver vs spin fixed point vs global minimisation
-     of the full-chain 3D energy from random starts (no parity, no phase, no sign assumptions).
- (3) free energy: spin energy at the solution vs multiband Bardeen-Stephen formula (ratio constant).
- (4) Tc_th = Tc_lin: sign of min energy vs top stability eigenvalue across T.
+"""Compare the finite spin functional with the Eliashberg equations numerically.
+
+(1) Evaluate the one-band stability eigenvalue at the known Einstein lambda=1 Tc.
+(2) Compare the multiband (Z, Delta) solver with a spin fixed point and
+    minimization of the full three-dimensional spin energy from random starts.
+    The minimization imposes no parity, phase or sign restrictions.
+(3) Compare the ratio of the multiband Bardeen-Stephen free energy to the spin energy.
+(4) Compare the sign of the lowest energy found with the top stability
+    eigenvalue as temperature varies.
 """
 import sys
 import numpy as np
@@ -93,7 +96,7 @@ def main():
     ok &= abs(r1 - 1) < 1e-4
 
     # (2)+(3) random multiband instances below Tc
-    print("(2) multiband: spin fixed point vs (Z,Delta) solver vs 3D random-start global minimisation")
+    print("(2) Multiband equations: spin fixed point, (Z, Delta) solver and minimization from random starts")
     ratios = []
     for trial in range(8):
         nb = [2, 2, 3, 2, 3, 2, 2, 3][trial]
@@ -103,7 +106,7 @@ def main():
         S0 = spins_from_delta(m, Dl)
         tq = m.torque(S0)
         Eeli = m.energy(S0)
-        # random-start global minimisation (full chain, 3D, no symmetry)
+        # Minimize the full three-dimensional energy without symmetry restrictions.
         Es, devs = [], []
         for s in range(12):
             U0 = rng.normal(size=S0.shape)
